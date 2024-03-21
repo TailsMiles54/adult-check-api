@@ -36,10 +36,6 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
-
-
-
-
 # Get example image from official fairface repo + read it in as an image
 # r = requests.get('{0}?raw=true'.format(url))
 # im = Image.open(BytesIO(r.content))

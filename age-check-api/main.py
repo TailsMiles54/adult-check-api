@@ -23,6 +23,7 @@ def login():
         file = request.files['file']
         im = Image.open(file)
 
+    im = im.convert('RGB')
 
     processor = AutoImageProcessor.from_pretrained("nateraw/vit-age-classifier")
     model = AutoModelForImageClassification.from_pretrained("nateraw/vit-age-classifier")

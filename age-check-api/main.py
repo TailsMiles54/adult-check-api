@@ -12,10 +12,17 @@ app = Flask(__name__)
 
 @app.route('/adultcheck',methods = ['POST'])
 def login():
-    url = request.form['imageurl']
 
-    r = requests.get('{0}?raw=true'.format(url))
-    im = Image.open(BytesIO(r.content))
+    if 'file' not in request.files:
+        url = request.form['imageurl']
+        r = requests.get('{0}?raw=true'.format(url))
+        im = Image.open(BytesIO(r.content))
+        print('no files')
+    else:
+        print('has file')
+        file = request.files['file']
+        im = Image.open(file)
+
 
     processor = AutoImageProcessor.from_pretrained("nateraw/vit-age-classifier")
     model = AutoModelForImageClassification.from_pretrained("nateraw/vit-age-classifier")

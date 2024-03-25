@@ -1,8 +1,6 @@
-import flask
-import re
-from flask import Flask, jsonify, request, redirect, url_for
-from flask_restful import Api, Resource, abort
-import requests
+from re import findall
+from flask import Flask, request
+from requests import get
 from PIL import Image
 from io import BytesIO
 
@@ -15,7 +13,7 @@ def login():
 
     if 'file' not in request.files:
         url = request.form['imageurl']
-        r = requests.get('{0}?raw=true'.format(url))
+        r = get('{0}?raw=true'.format(url))
         im = Image.open(BytesIO(r.content))
         print('no files')
     else:
@@ -39,7 +37,7 @@ def login():
     preds = proba.argmax(1)
     string = str(preds)
 
-    nums = re.findall(r'\d+', string)
+    nums = findall(r'\d+', string)
     nums = [int(i) for i in nums]
     adult = nums[0] > 2
 

@@ -1,3 +1,4 @@
+import os
 from re import findall
 from flask import Flask, request
 from requests import get
@@ -6,7 +7,12 @@ from io import BytesIO
 
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
+ASSETS_DIR = os.path.join(os.path.dirname(__file__))
 app = Flask(__name__)
+
+@app.route('/test', methods = ['GEt'])
+def test():
+    return "Hello World!"
 
 @app.route('/adultcheck',methods = ['POST'])
 def login():
@@ -44,4 +50,4 @@ def login():
     return str(adult)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
